@@ -483,9 +483,9 @@ LAYOUT_BASE = dict(
     legend=dict(bgcolor="rgba(255,255,255,0.9)", bordercolor="#e2e8f0",
                 borderwidth=1, font=dict(size=11)),
     margin=dict(l=50, r=30, t=60, b=50),
-    xaxis=dict(gridcolor="#e2e8f0", linecolor="#cbd5e1"),
-    yaxis=dict(gridcolor="#e2e8f0", linecolor="#cbd5e1"),
 )
+# Axis defaults applied per-chart to avoid duplicate-keyword conflicts
+_AXIS = dict(gridcolor="#e2e8f0", linecolor="#cbd5e1")
 
 def fig_bar(df: pd.DataFrame, highlight: str) -> go.Figure:
     df = df.sort_values("tax_gdp_pct", ascending=True)
@@ -507,8 +507,8 @@ def fig_bar(df: pd.DataFrame, highlight: str) -> go.Figure:
         title=dict(text="Tax Revenue (% GDP) — Harmonized, Source-Priority Applied",
                    font=dict(size=14, color="#0f2044"), x=0.01),
         height=max(400, len(df)*27), showlegend=False,
-        xaxis=dict(title="Tax/GDP (%)", range=[0, df["tax_gdp_pct"].max()*1.13]),
-        yaxis=dict(title=""),
+        xaxis=dict(**_AXIS, title="Tax/GDP (%)", range=[0, df["tax_gdp_pct"].max()*1.13]),
+        yaxis=dict(**_AXIS, title=""),
     )
     return fig
 
@@ -539,8 +539,8 @@ def fig_trend(harmonized: pd.DataFrame, raw: pd.DataFrame, countries: list) -> g
         title=dict(text="Historical Trend — Harmonized (solid) vs All Sources (faded dots)",
                    font=dict(size=14, color="#0f2044"), x=0.01),
         height=500, hovermode="x unified",
-        xaxis=dict(title="Year", dtick=2),
-        yaxis=dict(title="Tax/GDP (%)"),
+        xaxis=dict(**_AXIS, title="Year", dtick=2),
+        yaxis=dict(**_AXIS, title="Tax/GDP (%)"),
         legend=dict(orientation="h", yanchor="bottom", y=1.02, x=0),
     )
     return fig
@@ -568,8 +568,8 @@ def fig_source_coverage(raw: pd.DataFrame, iso3_list: list) -> go.Figure:
         title=dict(text="Source Coverage Map — Best Source per Country-Year",
                    font=dict(size=14, color="#0f2044"), x=0.01),
         height=max(350, len(iso3_list)*22),
-        xaxis=dict(title="", dtick=2),
-        yaxis=dict(title="", autorange="reversed"),
+        xaxis=dict(**_AXIS, title="", dtick=2),
+        yaxis=dict(**_AXIS, title="", autorange="reversed"),
         margin=dict(l=120, r=20, t=60, b=40),
     )
     return fig
@@ -991,8 +991,8 @@ with tab6:
             title=dict(text="India — All Sources vs Estimated General Government Ratio",
                        font=dict(size=14, color="#0f2044"), x=0.01),
             height=430,
-            xaxis=dict(title="Year", dtick=2),
-            yaxis=dict(title="Tax/GDP (%)"),
+            xaxis=dict(**_AXIS, title="Year", dtick=2),
+            yaxis=dict(**_AXIS, title="Tax/GDP (%)"),
             legend=dict(orientation="h", yanchor="bottom", y=1.02),
         )
         st.plotly_chart(fig_ind, use_container_width=True)
