@@ -503,7 +503,7 @@ def fig_bar(df: pd.DataFrame, highlight: str) -> go.Figure:
     fig.add_vline(x=hi_avg, line_dash="dash", line_color="#d97706", line_width=1.5,
                   annotation_text=f"HI Avg: {hi_avg:.1f}%",
                   annotation_font=dict(size=10, color="#d97706"))
-    fig.update_layout(**LAYOUT_BASE,
+    fig.update_layout(LAYOUT_BASE,
         title=dict(text="Tax Revenue (% GDP) — Harmonized, Source-Priority Applied",
                    font=dict(size=14, color="#0f2044"), x=0.01),
         height=max(400, len(df)*27), showlegend=False,
@@ -535,7 +535,7 @@ def fig_trend(harmonized: pd.DataFrame, raw: pd.DataFrame, countries: list) -> g
                 showlegend=False,
                 hovertemplate=f"<b>{name} [{src}]</b><br>%{{x}}: %{{y:.2f}}%<extra></extra>",
             ))
-    fig.update_layout(**LAYOUT_BASE,
+    fig.update_layout(LAYOUT_BASE,
         title=dict(text="Historical Trend — Harmonized (solid) vs All Sources (faded dots)",
                    font=dict(size=14, color="#0f2044"), x=0.01),
         height=500, hovermode="x unified",
@@ -564,7 +564,7 @@ def fig_source_coverage(raw: pd.DataFrame, iso3_list: list) -> go.Figure:
         hovertemplate="<b>%{y}</b> · %{x}<br>Best source: %{text}<extra></extra>",
         zmin=0, zmax=3, showscale=False,
     ))
-    fig.update_layout(**LAYOUT_BASE,
+    fig.update_layout(LAYOUT_BASE,
         title=dict(text="Source Coverage Map — Best Source per Country-Year",
                    font=dict(size=14, color="#0f2044"), x=0.01),
         height=max(350, len(iso3_list)*22),
@@ -589,7 +589,7 @@ def fig_cross_source_scatter(raw: pd.DataFrame) -> go.Figure:
     hi = max(both[["wb","imf"]].max().max(), 1)
     fig.add_shape(type="line", x0=0, y0=0, x1=hi*1.1, y1=hi*1.1,
                   line=dict(dash="dash", color="#6b7280", width=1))
-    fig.update_layout(**LAYOUT_BASE, height=460)
+    fig.update_layout(LAYOUT_BASE, height=460)
     return fig
 
 def fig_choropleth(harmonized: pd.DataFrame) -> go.Figure:
@@ -602,7 +602,7 @@ def fig_choropleth(harmonized: pd.DataFrame) -> go.Figure:
         hovertemplate="<b>%{text}</b><br>Tax/GDP: %{z:.2f}%<extra></extra>",
         marker_line_color="white", marker_line_width=0.5,
     ))
-    fig.update_layout(**LAYOUT_BASE,
+    fig.update_layout(LAYOUT_BASE,
         title=dict(text="Global Tax-to-GDP Heat Map (Harmonized)",
                    font=dict(size=14, color="#0f2044"), x=0.01),
         geo=dict(showframe=False, showcoastlines=True, coastlinecolor="#cbd5e1",
@@ -987,7 +987,7 @@ with tab6:
                           annotation_text="Brazil 18.1%",
                           annotation_font=dict(size=10, color="#2a9d8f"),
                           annotation_position="top right")
-        fig_ind.update_layout(**LAYOUT_BASE,
+        fig_ind.update_layout(LAYOUT_BASE,
             title=dict(text="India — All Sources vs Estimated General Government Ratio",
                        font=dict(size=14, color="#0f2044"), x=0.01),
             height=430,
