@@ -948,7 +948,7 @@ with tab5:
                 else "color:#d97706;font-weight:600" if val=="WARN"
                 else "color:#1a7a3c;font-weight:600")
     st.dataframe(
-        fresh_df.style.applymap(style_severity, subset=["severity"]),
+        fresh_df.style.map(style_severity, subset=["severity"]),
         use_container_width=True, hide_index=True,
     )
 
